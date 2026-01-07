@@ -7,5 +7,3 @@ export function getNumbers(from: number, to: number): number[] {
 
   return numbers;
 }
-
-

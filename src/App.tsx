@@ -4,7 +4,7 @@ import { getNumbers } from './utils';
 import { Pagination } from './components/Pagination';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-export const items = getNumbers(1, 42).map(n => `Item ${n}`);
+ const items: string[] = getNumbers(1, 42).map(n => `Item ${n}`);
 /*  [
   "Item 1",
   "Item 2",
@@ -17,7 +17,7 @@ export const items = getNumbers(1, 42).map(n => `Item ${n}`);
 ]
 */
 enum ValueSelected {
-  There = '3',
+  Three = '3',
   Five = '5',
   Ten = '10',
   Twenty = '20',
@@ -26,7 +26,7 @@ enum ValueSelected {
 export const App: React.FC = () => {
   const [perPage, setPerPage] = useState<number>(5);
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const [total] = useState<number>(42);
+  const total = 42;
 
   const startIndex = (currentPage - 1) * perPage;
   // const endIndex = startIndex + perPage;
@@ -53,7 +53,7 @@ export const App: React.FC = () => {
               setCurrentPage(1);
             }}
           >
-            <option value={ValueSelected.There}>3</option>
+            <option value={ValueSelected.Three}>3</option>
             <option value={ValueSelected.Five}>5</option>
             <option value={ValueSelected.Ten}>10</option>
             <option value={ValueSelected.Twenty}>20</option>
@@ -73,6 +73,7 @@ export const App: React.FC = () => {
         onPageChange={page => {
           setCurrentPage(page);
         }}
+        items={items}
       />
     </div>
   );

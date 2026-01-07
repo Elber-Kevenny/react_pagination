@@ -1,19 +1,20 @@
 import React from 'react';
-import { items } from '../../App';
 import { getNumbers } from '../../utils';
 
 export interface PaginationProps {
   total: number; // total de itens
   perPage: number; // itens por pagina
-  currentPage: number; // pagina atual
+  currentPage?: number; // pagina atual
   onPageChange: (page: number) => void;
+  items: string[];
 }
 
 export const Pagination: React.FC<PaginationProps> = ({
   total,
   perPage,
-  currentPage,
+  currentPage = 1,
   onPageChange,
+  items,
 }) => {
   const pagesCount = Math.ceil(total / perPage); // 5
   const pagesLink = getNumbers(1, pagesCount); // [1, 2, 3, e etc]
@@ -27,7 +28,7 @@ export const Pagination: React.FC<PaginationProps> = ({
             data-cy="prevLink"
             className="page-link"
             href="#prev"
-            aria-disabled={` ${currentPage === 1 ? 'true' : 'false'}`}
+            aria-disabled={currentPage === 1 ? 'true' : 'false'}
             onClick={e => {
               e.preventDefault();
               if (currentPage > 1) {
@@ -59,16 +60,16 @@ export const Pagination: React.FC<PaginationProps> = ({
           </li>
         ))}
         <li
-          className={`page-item ${`${currentPage < pagesCount ? '' : 'disabled'}`}`}
+          className={`page-item ${currentPage < pagesCount ? '' : 'disabled'}`}
         >
           <a
             data-cy="nextLink"
             className="page-link"
             href="#next"
-            aria-disabled={`${currentPage < pagesCount ? 'false' : 'true'}`}
+            aria-disabled={currentPage < pagesCount ? 'false' : 'true'}
             onClick={e => {
               e.preventDefault();
-              if (currentPage >= 1) {
+              if (currentPage < pagesCount) {
                 onPageChange(currentPage + 1);
               }
             }}
