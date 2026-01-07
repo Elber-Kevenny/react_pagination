@@ -4,7 +4,8 @@ import { getNumbers } from './utils';
 import { Pagination } from './components/Pagination';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
- const items: string[] = getNumbers(1, 42).map(n => `Item ${n}`);
+const items = getNumbers(1, 42).map(n => `Item ${n}`);
+
 /*  [
   "Item 1",
   "Item 2",
@@ -23,10 +24,12 @@ enum ValueSelected {
   Twenty = '20',
 }
 
+
 export const App: React.FC = () => {
   const [perPage, setPerPage] = useState<number>(5);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const total = 42;
+
 
   const startIndex = (currentPage - 1) * perPage;
   // const endIndex = startIndex + perPage;
@@ -73,8 +76,16 @@ export const App: React.FC = () => {
         onPageChange={page => {
           setCurrentPage(page);
         }}
-        items={items}
+
       />
+       <ul>
+        {items.slice(startIndex, perPage + startIndex).map(item => (
+          <li key={item} data-cy="item">
+            {item}
+          </li>
+          // retorna um array de listas
+        ))}
+      </ul>
     </div>
   );
 };

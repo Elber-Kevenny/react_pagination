@@ -6,7 +6,6 @@ export interface PaginationProps {
   perPage: number; // itens por pagina
   currentPage?: number; // pagina atual
   onPageChange: (page: number) => void;
-  items: string[];
 }
 
 export const Pagination: React.FC<PaginationProps> = ({
@@ -14,11 +13,10 @@ export const Pagination: React.FC<PaginationProps> = ({
   perPage,
   currentPage = 1,
   onPageChange,
-  items,
+
 }) => {
   const pagesCount = Math.ceil(total / perPage); // 5
   const pagesLink = getNumbers(1, pagesCount); // [1, 2, 3, e etc]
-  const startIndex = (currentPage - 1) * perPage;
 
   return (
     <>
@@ -78,14 +76,7 @@ export const Pagination: React.FC<PaginationProps> = ({
           </a>
         </li>
       </ul>
-      <ul>
-        {items.slice(startIndex, perPage + startIndex).map(item => (
-          <li key={item} data-cy="item">
-            {item}
-          </li>
-          // retorna um array de listas
-        ))}
-      </ul>
+
     </>
   );
 };
